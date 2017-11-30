@@ -1,0 +1,42 @@
+{% extends "base.j2" %}
+{% block content %}
+<script type="text/javascript">
+$(document).ready(function(){ new Clipboard('.btn');});
+
+$(document).ready(function() {
+    $('#datafiles').DataTable({
+        deferRender:    true,
+        scrollY:        window.innerHeight,
+        scrollCollapse: true,
+        scroller:       true
+    });
+});
+
+</script>
+<div class="container">
+<!--Duration: {{ duration }}-->
+    <form method="POST">
+        <input name="text" placeholder='Enter a word'><br/>
+        <input type="checkbox" name="dictonly"> Dictionary Words Only<br/>
+        <input type="submit" class="btn btn-primary" role="button">
+    </form>                 
+    <hr/>
+    <table id="datafiles" class="table table-striped" cellpadding="0" cellspacing="0" border="0">
+    <thead>
+    <tr>
+        <th>Word</th>
+        <th>English</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for f in files %}
+        <tr>
+            <td>{{ f['word'] }}</td>
+            <td>{{ f['english'] }} </td>  
+        </tr>
+    {% endfor %}
+    </tbody>
+    {% endblock %}
+
+
+</div>
