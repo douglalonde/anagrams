@@ -3,24 +3,24 @@ Demonstration repository to showcase an anagram generation app using Docker and 
 
 # Installation (to run webapp locally)
 
-- install python3
-- Setup virtualenv. 
+- Install python3 and virtualenv
+- Setup virtualenv (these remaining steps can be accomplished by running setup.sh)
 ```shell
     $ virtualenv -p python3.6 _env
     $ source _env/bin/activate
 ```
-- Run pip install for all project dependencies.
+- Run pip install for all project dependencies
 ```shell
     $ pip install -r requirements.txt
 ```
 
-- set the anagrams application entry file in env variable.
+- set the anagrams application entry file in env variable
 ```shell
    $ export FLASK_APP=anagrams.py
    $ export LC_ALL=en_US.UTF-8
    $ export LANG=en_US.UTF-8
 ```
-- Start the flask application.
+- Start the flask application
 ```
 $ flask run --host=0.0.0.0
 ```
