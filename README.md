@@ -2,7 +2,7 @@
 Demonstration repository to showcase an anagram generation app using Docker and Kubernetes on AWS.
 
 # Installation (to run webapp locally)
-
+- git clone this repo
 - Install python3 and virtualenv
 - Setup virtualenv (these remaining steps can be accomplished by running setup.sh)
 ```shell
@@ -27,10 +27,11 @@ $ flask run --host=0.0.0.0
 
 - Visit http://127.0.0.1:5000/
 
-# Docker 
-After code changes, in Anagrams directory, run:
+# Deploying with Docker 
+
+After code changes, in Anagrams repo directory, run:
 ```shell
-    $ docker build -t anagrams .
+    $ docker build -t anagrams:v1.1 .
 ```
 To push to docker, run
 ```shell
@@ -39,9 +40,15 @@ To push to docker, run
 Enter docker id and password.
 Push new image to dockerhub.
 ```shell
-    $ docker tag anagrams dlalonde/anagrams
+    $ docker images (get image id)
+    # docker tag (image id) dlalonde/anagrams:v1.1
     $ docker push dlalonde/anagrams
 ```
+To run the service in a docker image locally:
+```shell
+docker run -d -it -p 8000:8000 anagrams
+```
+View at 0.0.0.0:8000
 
 # Kubernetes deployment
 ### Set up local web access
@@ -54,6 +61,9 @@ kubectl expose --namespace=anagrams deployment anagrams --type=LoadBalancer --po
 Retrieve URL:
 kubectl --namespace=anagrams describe service anagrams-public
 URL example: LoadBalancer Ingress:     a2c1997a7d57d11e7a7fd12166a12f4e-1654783314.us-east-1.elb.amazonaws.com
+### Deploy a new image
+kubectl edit deployment anagrams -n anagrams
+and edit the image setting.
 
 # Maintainer
 - Doug Lalonde - <douglalonde@gmail.com>
