@@ -13,7 +13,8 @@ RUN pip install flask gunicorn
 
 COPY templates templates/
 COPY static static/
-copy words.txt words.txt
+COPY words.txt words.txt
+COPY sowpods.txt sowpods.txt
 COPY application.py application.py
 COPY anagrams.py anagrams.py
 COPY gunicorn.config gunicorn.config
