@@ -52,14 +52,20 @@ View at 0.0.0.0:8000
 
 # Kubernetes deployment
 ### Set up local web access
+```
 kubectl proxy
+```
 Dashboard available at http://localhost:8001/ui
 ### Create namespace, deployment and service
+```
 kubectl create namespace anagrams
 kubectl run --namespace anagrams anagrams --image=dlalonde/anagrams --replicas=1 --port=8000
 kubectl expose --namespace=anagrams deployment anagrams --type=LoadBalancer --port=80 --target-port=8000 --name=anagrams-public
+```
 Retrieve URL:
+```
 kubectl --namespace=anagrams describe service anagrams-public
+```
 URL example: LoadBalancer Ingress:     a2c1997a7d57d11e7a7fd12166a12f4e-1654783314.us-east-1.elb.amazonaws.com
 ### Deploy a new image
 After creating a new version and pushing to DockerHub, 
