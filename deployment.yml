@@ -26,7 +26,7 @@ spec:
         run: anagrams
     spec:
       containers:
-      - image: dlalonde/anagrams
+      - image: dlalonde/anagrams:v1.11
         imagePullPolicy: Always
         name: anagrams
         ports:

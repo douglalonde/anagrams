@@ -12,27 +12,27 @@ $(document).ready(function() {
     });
 });
 
+
 </script>
 <div class="container">
+
 <!--Duration: {{ duration }}-->
     <form method="POST">
-        <input name="text" placeholder='Enter a word'><br/>
-        <input type="checkbox" name="dictonly"> Dictionary Words Only<br/>
+        <input type="text" name="text" pattern="[a-zA-Z\s]+" minlength="3" maxlength="20" placeholder="Letters only: {{anagram}}"><br/><br/>
+        <!-- input type="checkbox" name="dictonly"> Dictionary Words Only<br/-->
         <input type="submit" class="btn btn-primary" role="button">
     </form>                 
     <hr/>
     <table id="datafiles" class="table table-striped" cellpadding="0" cellspacing="0" border="0">
     <thead>
     <tr>
-        <th>Word</th>
-        <th>English</th>
+        <th>Anagrams</th>
     </tr>
     </thead>
     <tbody>
     {% for f in files %}
         <tr>
             <td>{{ f['word'] }}</td>
-            <td>{{ f['english'] }} </td>  
         </tr>
     {% endfor %}
     </tbody>

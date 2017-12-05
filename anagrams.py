@@ -56,8 +56,8 @@ def load_dictionary(path):
         result.add(word)
     return result
 
-#words = load_dictionary('words.txt')
-words = load_dictionary('sowpods.txt')
+words = load_dictionary('words.txt')
+#words = load_dictionary('sowpods.txt')
 #words = load_dictionary('wordsEn.txt')
 
 # Check if a string is a word
@@ -74,13 +74,36 @@ def my_form_post():
     start_time = time.time()
     return_list = []
     letters = request.form['text']
-
     #letters = letters.lower()
-    letters = letters.replace(' ', '')
+    ns_letters = letters.replace(' ', '')
     
+    # # new
+    # anagram_list = get_anagrams(letters)
+    # count = 0
+    # for word in anagram_list:
+    #     print(word)
+    #     if word == ns_letters:
+    #         continue
+    #     wordlist = word.split()
+    #     links = ""
+    #     for w in wordlist:
+    #         links = links + '<a href= http://www.dictionary.com/browse/' + w + '?s=t>' + w + '</a> &nbsp'
+
+    #     return_list.append({'word': links, 'english':'yes'})
+    #     count += 1
+    # print('%d results.' % count)
+    # duration = str(time.time() - start_time)
+    # print("Duration: " + duration)
+    # return render_template('index2.j2', files=return_list, anagram=letters)
+
+    #old:
+   
     count = 0
-    for word in words.anagram(letters):
+    for word in words.anagram(ns_letters):
+ #   for word in get_anagrams(ns_letters):
         print(word)
+        if word == ns_letters:
+            continue
         wordlist = word.split()
         links = ""
         for w in wordlist:
@@ -91,7 +114,51 @@ def my_form_post():
     print('%d results.' % count)
     duration = str(time.time() - start_time)
     print("Duration: " + duration)
-    return render_template('index2.j2', files=return_list)
+    return render_template('index2.j2', files=return_list, anagram=letters)
+
+
+
+
+ 
+def get_anagrams(anagram):
+    
+    import urllib.request
+    from collections import defaultdict
+    words_from_file = urllib.request.urlopen('file:///Users/dlalonde/code/demo/words.txt').read().split()
+    return_list = []
+    anagram = defaultdict(list) # map sorted chars to anagrams
+    for word in words_from_file:
+        anagram[tuple(sorted(word))].append( word )
+ 
+    count = max(len(ana) for ana in anagram.itervalues())
+    for ana in anagram.itervalues():
+        if len(ana) >= count:
+            print (ana)
+            return_list.append(ana)
+    return return_list
+
+    # import urllib.request
+    # from collections import defaultdict
+    # #words = urllib.request.urlopen('http://www.puzzlers.org/pub/wordlists/unixdict.txt').read().split()
+    # words_from_file = []
+    # for line in open("words.txt", 'r'):
+    #     word = line.strip() #.lower()
+    #     words_from_file.append(word)
+    
+    # anagram = defaultdict(list) # map sorted chars to anagrams
+    # return_list = []
+    # for word in words_from_file:
+    #     anagram[tuple(sorted(word))].append( word )   
+    #     start_time = time.time()
+    #     count = max(len(ana) for ana in anagram.values())
+    #     for ana in anagram.values():
+    #         if len(ana) >= count:
+    #             w = [x.decode() for x in ana]
+    #             print (w)
+    #             return_list.append(w)
+    #     duration = str(time.time() - start_time)
+    #     print("Duration with defaultdict: " + duration)
+    #     return return_list
 
 
 
