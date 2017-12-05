@@ -83,6 +83,10 @@ or edit the running deployment:
 ```shell
 kubectl edit deployment anagrams -n anagrams
 ```
+# Notes
+
+AWS can be used to autoscale but is restricted to metrics like CPU and memory use to determine scaling actions.  Kubernetes can be configured to trigger AWS autoscaling, as outlined here: 
+https://community.sdl.com/product-groups/sdl-tridion-dx/tridion-sites/tridion-developer/b/feed/posts/autoscaling-your-kubernetes-cluster-on-aws
 
 # Maintainer
 - Doug Lalonde - <douglalonde@gmail.com>
